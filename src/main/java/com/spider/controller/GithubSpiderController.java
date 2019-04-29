@@ -161,7 +161,7 @@ public class GithubSpiderController {
 
 
     @RequestMapping("/schedule")
-    public void schedule() throws InterruptedException {
+    public void schedule() throws Exception {
 
         log.info("爬虫任务开始");
         pageDataTemRepository.truncateTable();

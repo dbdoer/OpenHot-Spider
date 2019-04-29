@@ -8,6 +8,7 @@ import com.spider.entity.PageData;
 import com.spider.entity.PageDataTem;
 import com.spider.util.DateUtil;
 import com.spider.util.HttpUtils;
+import org.apache.http.HttpException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -91,7 +92,7 @@ public class SpiderGithub {
     }
 
 
-    public void scheduleSpider() throws InterruptedException {
+    public void scheduleSpider() throws Exception {
         String url = "https://github.com/search?type=Repositories&q=stars%3A%3E%3D10&p=x";
 
         List<Language> languages = languageRepository.findAll();
@@ -150,11 +151,14 @@ public class SpiderGithub {
 
                         i++;
                         Thread.sleep(2000);
-                    } catch (Exception e) {
+                    } catch (HttpException e) {
                         log.info("爬取数据出现异常,60秒后重试");
                         i = i_t;
                         Thread.sleep(60000);
                         continue;
+                    } catch (Exception e) {
+                        log.info("Exception:{}", e);
+                        throw new Exception(e);
                     }
                 }
             }

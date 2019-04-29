@@ -27,7 +27,6 @@ public class PageDataTem {
 
     private String type;
 
-    private Date createDate;
 
     public String getProjectName() {
         return projectName;
@@ -85,11 +84,4 @@ public class PageDataTem {
         this.desc = desc;
     }
 
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
 }

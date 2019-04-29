@@ -1,5 +1,6 @@
 package com.spider.util;
 
+import org.apache.http.HttpException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
@@ -45,9 +46,11 @@ public class HttpUtils {
                 resHtml = EntityUtils.toString(httpResponse.getEntity());//获得返回的结果
             } else {
                 log.info("http 状态异常,状态码[{}]", httpResponse.getStatusLine().getStatusCode());
-                throw new Exception("http 状态异常" + httpResponse.getStatusLine().getStatusCode());
+                throw new HttpException("http 状态异常" + httpResponse.getStatusLine().getStatusCode());
             }
-
+        }catch(HttpException e){
+            log.info("HttpException:{}", e);
+            throw new HttpException(e.getMessage());
         } catch (IOException e) {
             log.info("IOException:{}", e);
             throw new IOException(e);
