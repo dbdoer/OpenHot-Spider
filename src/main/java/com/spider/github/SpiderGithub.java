@@ -27,18 +27,11 @@ public class SpiderGithub {
 
     private Logger log = LoggerFactory.getLogger(SpiderGithub.class);
 
-
     @Autowired
     private LanguageRepository languageRepository;
 
     @Autowired
-    private PageDataRepository pageDataRepository;
-
-    @Autowired
     private PageDataTemRepository pageDataTemRepository;
-
-    @Autowired
-    private PageDataRepository pageDateRepository;
 
     @Autowired
     private HttpUtils httpUtils;
@@ -103,8 +96,8 @@ public class SpiderGithub {
 
         List<Language> languages = languageRepository.findAll();
 
-        // 0:全部 1:周 2:月 3:年
-        for (int t = 0; t <= 3; t++) {
+        // 0:全部 1:周 2:月 3:季，4：年
+        for (int t = 0; t <= 4; t++) {
 
             String dateUrl = url;
             String date = "";
@@ -116,6 +109,9 @@ public class SpiderGithub {
                 date = DateUtil.getBeforeDate(30);
                 log.info("当前爬取日期为一月");
             } else if (t == 3) {
+                date = DateUtil.getBeforeDate(90);
+                log.info("当前爬取日期为一季度");
+            } else if (t == 4) {
                 date = DateUtil.getBeforeDate(365);
                 log.info("当前爬取日期为一年");
             } else {
@@ -155,9 +151,9 @@ public class SpiderGithub {
                         i++;
                         Thread.sleep(2000);
                     } catch (Exception e) {
-                        log.info("爬取数据出现异常,20秒后重试");
+                        log.info("爬取数据出现异常,60秒后重试");
                         i = i_t;
-                        Thread.sleep(20000);
+                        Thread.sleep(60000);
                         continue;
                     }
                 }

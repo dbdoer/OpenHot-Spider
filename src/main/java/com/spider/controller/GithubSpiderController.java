@@ -1,9 +1,5 @@
 package com.spider.controller;
 
-//import com.spider.dao.PageDataRepository;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.spider.dao.PageDataRepository;
 import com.spider.dao.PageDataTemRepository;
 import com.spider.entity.PageData;
@@ -29,10 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/githubSpider")
