@@ -9,6 +9,7 @@ import com.spider.entity.PageDataTem;
 import com.spider.util.DateUtil;
 import com.spider.util.HttpUtils;
 import org.apache.http.HttpException;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -151,10 +152,10 @@ public class SpiderGithub {
 
                         i++;
                         Thread.sleep(2000);
-                    } catch (HttpException e) {
-                        log.info("爬取数据出现异常,60秒后重试");
+                    } catch (HttpException | ConnectTimeoutException e) {
+                        log.info("爬取数据出现异常,120秒后重试");
                         i = i_t;
-                        Thread.sleep(60000);
+                        Thread.sleep(1200000);
                         continue;
                     } catch (Exception e) {
                         log.info("Exception:{}", e);
